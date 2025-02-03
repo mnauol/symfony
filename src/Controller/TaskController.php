@@ -43,6 +43,14 @@ final class TaskController extends AbstractController
         $em->flush();
         return $this->json(['message' => 'Task created!']);
     }
+    #[Route('/tasks/view', name: 'task_view', methods: ['GET'])]
+    public function viewTasks(TaskRepository $taskRepository): Response
+    {
+        $tasks = $taskRepository->findAll();
+        return $this->render('task/list.html.twig', [
+            'tasks' => $tasks,
+        ]);
+    }
 }
 
 

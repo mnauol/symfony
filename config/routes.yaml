@@ -7,3 +7,7 @@ controllers:
 lucky:
     path: /lucky/number
     controller: App\Controller\LuckyController::number
+    
+error:
+    path: /error/{code}
+    controller: App\Controller\ErrorController::showError

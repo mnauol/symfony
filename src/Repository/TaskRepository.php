@@ -40,4 +40,32 @@ class TaskRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
+   
+    public function findIncompleteTasks(): array
+    {
+        return $this->createQueryBuilder('t')
+            ->andWhere('t.completed = :completed')
+            ->setParameter('completed', false)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findCompletedTasks(): array
+    {
+        return $this->createQueryBuilder('t')
+            ->andWhere('t.completed = :completed')
+            ->setParameter('completed', true)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findLatestTasks(int $limit): array
+    {
+        return $this->createQueryBuilder('t')
+            ->orderBy('t.id', 'DESC')
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
 }
