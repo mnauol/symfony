@@ -67,6 +67,11 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function isValidEmail(): bool
+    {
+        return filter_var($this->email, FILTER_VALIDATE_EMAIL) !== false;
+    }
+
     public function getRole(): ?string
     {
         return $this->role;

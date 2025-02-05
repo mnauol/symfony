@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Symfony\Component\Serializer\Annotation\Groups;
 use App\Repository\TaskRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -11,15 +12,19 @@ class Task
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['task:list'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['task:list'])]
     private ?string $Task = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['task:list'])]
     private ?string $Description = null;
 
     #[ORM\Column]
+    #[Groups(['task:list'])]
     private ?bool $Completed = null;
 
     public function getId(): ?int

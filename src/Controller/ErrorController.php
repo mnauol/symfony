@@ -3,17 +3,17 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ErrorController extends AbstractController
 {
     #[Route('/error/{code}', name: 'custom_error')]
-    public function showError(int $code): Response
+    public function showError(int $code): JsonResponse
     {
-        return $this->render('errors/error.html.twig', [
-            'error_code' => $code,
+        return new JsonResponse([
             'message' => $this->getErrorMessage($code),
+            'error_code' => $code,
         ]);
     }
 

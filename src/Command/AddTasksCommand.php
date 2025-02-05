@@ -16,7 +16,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 )]
 class AddTasksCommand extends Command
 {
-    private EntityManagerInterface $entityManager;
+    private EntityManagerInterface $entityManager; 
 
     public function __construct(EntityManagerInterface $entityManager)
     {

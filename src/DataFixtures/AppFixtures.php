@@ -37,8 +37,8 @@ class AppFixtures extends Fixture
 
         for ($i = 1; $i <= 5; $i++) {
             $task = new Task();
-            $task->setTask("Task {$i}");
-            $task->setDescription("Description for task {$i}");
+            $task->setTask("task {$i}");
+            $task->setDescription("description for task {$i}");
             $task->setCompleted(false);
             $manager->persist($task);
         }
