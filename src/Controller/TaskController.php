@@ -59,6 +59,46 @@ final class TaskController extends AbstractController
             'tasks' => $tasks,
         ]);
     }
+    
+    #[Route('/tasks/{id}', name: 'task_update', methods: ['PUT', 'PATCH'])]
+    public function updateTask(int $id, Request $request, TaskRepository $taskRepository, EntityManagerInterface $em): Response
+    {
+        $task = $taskRepository->find($id);
+
+        if (!$task) {
+            return $this->json(['error' => 'Task not found'], Response::HTTP_NOT_FOUND);
+        }
+
+        $data = json_decode($request->getContent(), true);
+        if (isset($data['title'])) {
+            $task->setTask($data['title']);
+        }
+        if (isset($data['description'])) {
+            $task->setDescription($data['description']);
+        }
+        if (isset($data['completed'])) {
+            $task->setCompleted($data['completed']);
+        }
+
+        $em->flush();
+        return $this->json(['message' => 'Task updated successfully']);
+    }
+
+    #[Route('/tasks/{id}', name: 'task_delete', methods: ['DELETE'])]
+    public function deleteTask(int $id, TaskRepository $taskRepository, EntityManagerInterface $em): Response
+    {
+        $task = $taskRepository->find($id);
+
+        if (!$task) {
+            return $this->json(['error' => 'Task not found'], Response::HTTP_NOT_FOUND);
+        }
+
+        $em->remove($task);
+        $em->flush();
+
+        return $this->json(['message' => 'Task deleted successfully']);
+    }
 }
+
 
 
